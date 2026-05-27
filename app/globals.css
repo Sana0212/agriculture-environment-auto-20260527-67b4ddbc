@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Verdant Axis Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --va-bg:           #111310;
+  --va-surface:      #1B1E18;
+  --va-text:         #E8E4D9;
+  --va-accent:       #A8D84E;
+  --va-forest:       #3D5A2E;
+  --va-muted:        #8A8A7A;
+  --va-accent-hover: #E8E4D9;
+
+  /* shadcn token overrides — keep component library working */
+  --background:          0 0% 6.7%;
+  --foreground:          45 14% 88%;
+  --card:                100 8% 11%;
+  --card-foreground:     45 14% 88%;
+  --popover:             100 8% 11%;
+  --popover-foreground:  45 14% 88%;
+  --primary:             78 65% 58%;
+  --primary-foreground:  100 8% 7%;
+  --secondary:           100 6% 13%;
+  --secondary-foreground:45 14% 88%;
+  --muted:               100 6% 13%;
+  --muted-foreground:    45 5% 54%;
+  --accent:              78 65% 58%;
+  --accent-foreground:   100 8% 7%;
+  --destructive:         0 62% 40%;
+  --destructive-foreground: 45 14% 88%;
+  --border:              120 18% 27%;
+  --input:               120 18% 20%;
+  --ring:                78 65% 58%;
+  --radius:              0rem;
+}
+
+/* ─── Base resets ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--va-bg);
+    color: var(--va-text);
+    font-family: var(--font-literata), Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ─── Typography helpers ──────────────────────────────────────────────────── */
+.font-syne    { font-family: var(--font-syne), sans-serif; }
+.font-literata{ font-family: var(--font-literata), Georgia, serif; }
+
+/* ─── Page-load stagger animation ────────────────────────────────────────── */
+@keyframes va-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.va-word {
+  display: inline-block;
+  opacity: 0;
+  animation: va-word-in 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Scroll-reveal ───────────────────────────────────────────────────────── */
+.va-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.va-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Service item hover underline ───────────────────────────────────────── */
+.va-service-title {
+  position: relative;
+  display: inline-block;
+}
+.va-service-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--va-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.va-service-item:hover .va-service-title::after {
+  transform: scaleX(1);
+}
+
+/* ─── Noise texture overlay (pseudo) ─────────────────────────────────────── */
+.va-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Focus ring ──────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--va-accent);
+  outline-offset: 3px;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--va-bg); }
+::-webkit-scrollbar-thumb { background: var(--va-forest); border-radius: 0; }
