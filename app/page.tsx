@@ -11,7 +11,7 @@ import {
   process,
   services,
   testimonials,
-} from '@/lib/siteContent'
+} from '@/src/lib/siteContent'
 
 export default function Home() {
   return (
